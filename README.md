@@ -1,4 +1,4 @@
-# Probabilities_in_Bingo
+# Probabilities in Bingo
 Script  to calculate the expected number of calls for bingo win and stimulate the probability distribution of the number of calls for bingo win. 
 
 The bingo card is represented by an array of integer. This model stimulates the bingo card having 25 squares, arranged in 5 columns of 5 squares. The middle square is labeled "free". The goal is to have a complete row, column, or diagonal of 5 called off first. 
