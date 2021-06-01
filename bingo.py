@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from collections import Counter
 import fitter
+import math
 """
 A Bingo Card is represented by an array of integer.
 For the ease of simulation, each integer represents when a specific cell will be called by host (caller). 
@@ -99,34 +100,35 @@ def get_card_score(bingo):
                 column4_score, column5_score, diagonal1_score, diagonal2_score)
     return score
 
-
+""" Stimulate the bingo game 10000 times to estimate the mean, variance and standard deviation of the bingo card
+"""
 iterations: int = 10000
 card_score = np.empty(iterations, dtype=int)
 for i in range(iterations):
     a = generate_bingo(75)
     card_score[i] = get_card_score(a)
 
-number_of_frames = 1000
-
-"""
-Estimate the mean, variance for card score of a bingo card
-
-"""
 mean = card_score.mean()
 var = card_score.var()
+stdev = math.sqrt(var)
+print (mean,stdev)
+number_of_frames = 100
+"""
 f = fitter.Fitter(card_score, distributions=['possion'])
 f.fit()
 f.summary()
+
 """
-
-
 def update_hist(num):
-    plt.cla()
-    plt.hist(card_score[:num * 10],bins=range(76))
 
+    plt.cla()
+    plt.hist(card_score[:num * 100],bins=range(76))
+    plt.gca().set_title('Sampling Bingo Card Score Distribution')
+    plt.gca().set_ylabel('frequency')
+    plt.gca().set_xlabel('value')
 
 fig = plt.figure()
-
 ani = animation.FuncAnimation(fig, update_hist, number_of_frames, interval=1,repeat=False)
 
-"""
+plt.show()
+# ani.save('Probability distribution of Bingo.gif')
